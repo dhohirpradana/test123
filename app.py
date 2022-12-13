@@ -1,5 +1,6 @@
 import json
 import os
+import run
 import requests
 from sys import stderr
 from flask import Flask, request, jsonify
@@ -140,6 +141,11 @@ def deleteProduct(id):
         return jsonify(respBody)
     except Exception as e:
         return jsonify({"message": "error occured: " + e.__str__()})
+    
+@app.post("/pipeline-run")
+def pipelinePost():
+    return run.handler(request, jsonify)
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
